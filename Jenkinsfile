@@ -30,8 +30,20 @@ pipeline {
     }
     post {
         success { echo '✅ Pipeline completed successfully!' }
-        // This block publishes test results. It's fine even if no tests
-        // are found because 'allowEmptyResults: true' is set.
-        always { junit allowEmptyResults: true, testResults: '' }
+        
+        // DEBUG FIX: The 'junit' step was failing because 'testResults: '''
+        // was incorrectly matching all files (including the Jenkinsfile)
+        // as test reports.
+        // Since this pipeline doesn't generate XML test reports,
+        // the step has been removed to fix the error.
+        always {
+            // The problematic line was:
+            // junit allowEmptyResults: true, testResults: ''
+            
+            // Replaced with a simple echo. If you add tests later,
+            // you can add back the junit step with a specific file pattern,
+            // e.g., testResults: 'build/reports/*.xml'
+            echo "Pipeline post-processing finished."
+        }
     }
 }
