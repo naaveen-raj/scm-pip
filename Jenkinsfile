@@ -2,12 +2,12 @@ pipeline {
 agent any
 options { timestamps() }
 stages {
-stage('Checkout') {
-steps {
-checkout scm
-sh 'echo "✅ Code checkout complete."'
-}
-}
+// stage('Checkout') {
+// steps {
+// checkout scm
+// sh 'echo "✅ Code checkout complete."'
+// }
+// }
 stage('Build') {
 steps {
 sh '''
